@@ -23,6 +23,10 @@ public:
 				std::print("Stopping image acquisition...\n");
 				so_5::send<commands::stop_acquisition>(m_output);
 			}
+			else if (cmd.starts_with("3")) {
+				so_5::send<commands::start_acquisition>(m_output);
+				so_5::send_delayed<commands::stop_acquisition>(m_output, std::chrono::seconds(stoi(cmd.substr(1))));
+			}
 		});
 	}
 
