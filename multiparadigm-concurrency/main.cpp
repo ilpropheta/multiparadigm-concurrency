@@ -3,9 +3,19 @@
 #include "ImageTracer.h"
 #include "ImageViewer.h"
 
+static void SendKeyboardInputTo(const so_5::mbox_t& destination)
+{
+	std::string cmd;
+	while (std::getline(std::cin, cmd))
+	{
+		if (cmd.empty())
+			break;
+		send<std::string>(destination, std::move(cmd));
+	}
+}
+
 int main()
 {
-	std::stop_source stop_source;
 	const so_5::wrapped_env_t sobj;
 	auto& environment = sobj.environment();
 
@@ -16,6 +26,5 @@ int main()
 		coop.make_agent<ImageViewer>(mailbox);
 	});
 
-	std::cin.get();
-	stop_source.request_stop();
+	SendKeyboardInputTo(mailbox);
 }
