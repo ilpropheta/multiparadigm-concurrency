@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="ImageProducer.h" />
     <ClInclude Include="ImageTracer.h" />
+    <ClInclude Include="ImageViewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

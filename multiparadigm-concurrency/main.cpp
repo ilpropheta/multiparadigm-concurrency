@@ -1,6 +1,7 @@
 #include <so_5/all.hpp>
 #include "ImageProducer.h"
 #include "ImageTracer.h"
+#include "ImageViewer.h"
 
 int main()
 {
@@ -12,6 +13,7 @@ int main()
 	environment.introduce_coop([&](so_5::coop_t& coop) {
 		coop.make_agent<ImageProducer>(mailbox);
 		coop.make_agent<ImageTracer>(mailbox);
+		coop.make_agent<ImageViewer>(mailbox);
 	});
 
 	std::cin.get();
