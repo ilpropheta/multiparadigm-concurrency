@@ -7,9 +7,9 @@ int main()
 	const so_5::wrapped_env_t sobj;
 	auto& environment = sobj.environment();
 
-	auto tracer = environment.make_agent<ImageTracer>();
-	const auto mailbox = tracer->so_direct_mbox();
-	environment.register_agent_as_coop(std::move(tracer));
+	auto mailbox = environment.introduce_coop([&](so_5::coop_t& coop) {
+		return coop.make_agent<ImageTracer>()->so_direct_mbox();
+	});
 
 	send<cv::Mat>(mailbox, cv::Mat::ones(100, 100, CV_8U));
 	send<cv::Mat>(mailbox, cv::Mat::ones(100, 200, CV_8U));
