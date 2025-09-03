@@ -1,18 +1,19 @@
 #include <so_5/all.hpp>
-#include <opencv2/core/hal/interface.h>
+#include "ImageProducer.h"
 #include "ImageTracer.h"
 
 int main()
 {
+	std::stop_source stop_source;
 	const so_5::wrapped_env_t sobj;
 	auto& environment = sobj.environment();
 
 	auto mailbox = environment.create_mbox();
 	environment.introduce_coop([&](so_5::coop_t& coop) {
 		coop.make_agent<ImageTracer>(mailbox);
+		coop.make_agent<ImageProducer>(mailbox, stop_source.get_token());
 	});
 
-	send<cv::Mat>(mailbox, cv::Mat::ones(100, 100, CV_8U));
-	send<cv::Mat>(mailbox, cv::Mat::ones(100, 200, CV_8U));
-	send<cv::Mat>(mailbox, cv::Mat::ones(100, 300, CV_8U));
+	std::cin.get();
+	stop_source.request_stop();
 }
