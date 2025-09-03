@@ -25,7 +25,7 @@ int main()
 	const auto keyboardCh = environment.create_mbox();
 
 	environment.introduce_coop([&](so_5::coop_t& coop) {
-		coop.make_agent<ImageProducer>(imageCh);
+		coop.make_agent<ImageProducer>(imageCh, commandsCh);
 		coop.make_agent<ImageViewer>(imageCh);
 		coop.make_agent<RemoteControl>(keyboardCh, commandsCh);
 	});
