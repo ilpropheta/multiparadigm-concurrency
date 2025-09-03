@@ -128,9 +128,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="commands.h" />
     <ClInclude Include="ImageProducer.h" />
     <ClInclude Include="ImageTracer.h" />
     <ClInclude Include="ImageViewer.h" />
+    <ClInclude Include="RemoteControl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
