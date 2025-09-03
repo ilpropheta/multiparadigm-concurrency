@@ -1,6 +1,7 @@
 #include <so_5/all.hpp>
 #include "ImageProducer.h"
 #include "ImageTracer.h"
+#include "ImageViewer.h"
 
 int main()
 {
@@ -9,10 +10,10 @@ int main()
 	auto& environment = sobj.environment();
 
 	auto mailbox = environment.create_mbox();
-	auto binder = so_5::disp::active_obj::make_dispatcher(environment).binder();
 	environment.introduce_coop([&](so_5::coop_t& coop) {
-		coop.make_agent_with_binder<ImageProducer>(binder, mailbox, stop_source.get_token());
+		coop.make_agent<ImageProducer>(mailbox);
 		coop.make_agent<ImageTracer>(mailbox);
+		coop.make_agent<ImageViewer>(mailbox);
 	});
 
 	std::cin.get();
