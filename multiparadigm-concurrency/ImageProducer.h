@@ -1,8 +1,8 @@
 #pragma once
+#include <print>
 #include <opencv2/core/mat.hpp>
 #include <opencv2/videoio.hpp>
 #include <so_5/all.hpp>
-
 #include "commands.h"
 
 class ImageProducer : public so_5::agent_t
@@ -22,10 +22,12 @@ public:
             send<cv::Mat>(m_output, std::move(mat));
             send<grab_image>(*this);
         }).event(m_commands, [this](mhood_t<commands::stop_acquisition>) {
+            std::print("Stopping image acquisition...\n");
         	st_stopped.activate();
         });
 
     	st_stopped.event(m_commands, [this](mhood_t<commands::start_acquisition>) {
+            std::print("Starting image acquisition...\n");
     		st_started.activate();
     		send<grab_image>(*this);
     	});
