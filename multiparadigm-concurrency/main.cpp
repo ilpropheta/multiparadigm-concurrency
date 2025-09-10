@@ -4,6 +4,7 @@
 #include "ImageViewer.h"
 #include "RemoteControl.h"
 #include "SlowClient.h"
+#include "SlowClientSender.h"
 
 static void SendKeyboardInputTo(const so_5::mbox_t& destination)
 {
@@ -29,6 +30,7 @@ int main()
 	environment.introduce_coop([&](so_5::coop_t& coop) {
 		coop.make_agent<ImageProducer>(imageCh, commandsCh);
 		coop.make_agent<ImageViewer>(imageCh);
+		coop.make_agent<SlowClientSender>(imageCh, slowClientCh);
 		coop.make_agent<RemoteControl>(keyboardCh, commandsCh);
 	});
 
