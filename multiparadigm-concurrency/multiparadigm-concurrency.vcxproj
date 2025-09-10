@@ -133,6 +133,8 @@
     <ClInclude Include="ImageTracer.h" />
     <ClInclude Include="ImageViewer.h" />
     <ClInclude Include="RemoteControl.h" />
+    <ClInclude Include="SlowClient.h" />
+    <ClInclude Include="SlowClientSender.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

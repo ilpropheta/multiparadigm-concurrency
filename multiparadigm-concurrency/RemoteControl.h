@@ -15,12 +15,10 @@ public:
 		so_subscribe(m_input).event([this](const std::string& cmd) {
 			if (cmd == "1")
 			{
-				std::print("Starting image acquisition...\n");
 				so_5::send<commands::start_acquisition>(m_output);
 			}
 			else if (cmd == "2")
 			{
-				std::print("Stopping image acquisition...\n");
 				so_5::send<commands::stop_acquisition>(m_output);
 			}
 			else if (cmd.starts_with("3")) {
